@@ -43,3 +43,29 @@ class TestConsoleDocs(unittest.TestCase):
             msg_doc_missing = f"{module_name} needs a docstring"
             self.assertIsNot(module.__doc__, None, msg_doc_missing)
             self.assertTrue(len(module.__doc__) >= 1, msg_doc_missing)
+
+
+class TestConsoleCreate(unittest.TestCase):
+    """Class for testing the do_create method in the Console"""
+
+    def setUp(self):
+        """Set up test environment"""
+        self.console = HBNBCommand()
+
+    def test_create_missing_class_name(self):
+        """Test create method with missing class name"""
+        output = self.console.onecmd("create")
+        self.assertIn("** class name missing **", output)
+
+    def test_create_invalid_class_name(self):
+        """Test create method with invalid class name"""
+        output = self.console.onecmd("create InvalidClass")
+        self.assertIn("** class doesn't exist **", output)
+
+    def test_create_with_parameters(self):
+        """Test create method with correct parameters"""
+        output = self.console.onecmd('create BaseModel name="My_house" age=25')
+
+
+if __name__ == '__main__':
+    unittest.main()
