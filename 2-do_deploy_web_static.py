@@ -39,7 +39,6 @@ def do_deploy(archive_path):
 
         put(archive_path, "/tmp/")
 
-
         run("sudo mkdir -p {}".format(version_folder))
         run("sudo tar -xzf /tmp/{} -C {}/".
             format(archive_filename, version_folder))

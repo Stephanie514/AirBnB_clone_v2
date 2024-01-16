@@ -24,13 +24,14 @@ def do_pack():
     local("mkdir -p versions")
 
     # Use tar command to create a compressed archive
-    archived = local("tar -cvzf {} web_static".format(archive_path))
+    archived = local("tar -cvzf {} web_static".format(archive_path), capture=True)
 
     # Check archive creation status
     if archived.return_code != 0:
-        return None
+        print("Error creating archive:", archived.stdout)
+        return (1)
     else:
-        return archive_path
+        return (0)
 
 
 def do_deploy(archive_path):
@@ -49,8 +50,8 @@ def do_deploy(archive_path):
         run("rm -rf {}web_static".format(f_path))
         run("rm -rf /data/web_static/current")
         run("ln -s {} /data/web_static/current".format(f_path))
-        return True
-    return False
+        return (0)
+    return (1)
 
 
 def deploy():
@@ -58,6 +59,6 @@ def deploy():
     Create an archive and get its path, then deploy it
     """
     archive_path = do_pack()
-    if archive_path is None:
-        return False
+    if archive_path != 0:
+        return (1)
     return do_deploy(archive_path)
