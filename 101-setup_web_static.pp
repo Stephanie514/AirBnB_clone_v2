@@ -1,4 +1,5 @@
 # Puppet manifest to set up web servers for the deployment of web_static
+
 # Update package list and install Nginx
 package { 'nginx':
   ensure => installed,
@@ -7,22 +8,37 @@ package { 'nginx':
 # Create necessary directories
 file { '/data':
   ensure  => 'directory',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
+  mode    => '0755',
 }
 
 file { '/data/web_static':
   ensure => 'directory',
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
+  mode   => '0755',
 }
 
 file { '/data/web_static/releases':
   ensure => 'directory',
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
+  mode   => '0755',
 }
 
 file { '/data/web_static/releases/test':
   ensure => 'directory',
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
+  mode   => '0755',
 }
 
 file { '/data/web_static/shared':
   ensure => 'directory',
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
+  mode   => '0755',
 }
 
 file { '/data/web_static/releases/test/index.html':
@@ -35,11 +51,16 @@ file { '/data/web_static/releases/test/index.html':
     <p>Holberton School</p>
   </body>
 </html>",
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
+  mode    => '0644',
 }
 
 file { '/data/web_static/current':
   ensure => 'link',
   target => '/data/web_static/releases/test',
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
 }
 
 # Change ownership
@@ -66,6 +87,9 @@ file { '/var/www/html/index.html':
     <p>Holberton School</p>
   </body>
 </html>",
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
+  mode    => '0644',
 }
 
 # Update Nginx configuration
