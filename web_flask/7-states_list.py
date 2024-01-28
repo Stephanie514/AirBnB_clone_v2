@@ -4,22 +4,22 @@ Starts a Flask web application
 """
 
 from flask import Flask, render_template
-from models import storage as st
+from models import storage
 
 app = Flask(__name__)
 
 
-@app.route('/states_listing', strict_slashes=False)
-def states_listing():
+@app.route('/states_list', strict_slashes=False)
+def states_list():
     """Display a HTML page with the states listed in alphabetical order"""
-    states_data = sorted(list(st.all("State").values()), key=lambda x: x.name)
-    return render_template('7-states_listing.html', states_data=states_data)
+    states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
+    return render_template('7-states_list.html', states=states)
 
 
 @app.teardown_appcontext
-def teardown_db_context(exception):
+def teardown_db(exception):
     """Closes the storage on teardown"""
-    st.close()
+    storage.close()
 
 
 if __name__ == '__main__':
