@@ -22,16 +22,16 @@ def disp_hbnb():
 
 
 @my_flask_app.route('/c/<text>', strict_slashes=False)
-def c_is_fun(txt):
+def c_is_fun(text):
     """Display “C ” followed by the value of text variable"""
     return 'C ' + txt.replace('_', ' ')
 
 
 @my_flask_app.route('/python', strict_slashes=False)
 @my_flask_app.route('/python/<text>', strict_slashes=False)
-def python_is_cool(txt='is cool'):
+def python_is_cool(text='is cool'):
     """Display “Python ”, followed by the value of text variable"""
-    return 'Python ' + txt.replace('_', ' ')
+    return 'Python ' + text.replace('_', ' ')
 
 
 if __name__ == '__main__':
